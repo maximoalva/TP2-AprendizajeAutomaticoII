@@ -73,12 +73,7 @@ The trained model is then used by a neural agent to select the action with the h
 
 The first neural network was trained using the complete Q-table.
 
-However, this introduced a major problem: a large portion of the table contained states that had never been visited during Q-Learning.
-
-These states contained:
-```bash
-Q = [0, 0]
-```
+However, this introduced a major problem: a large portion of the table contained states `Q = [0, 0]` that had never been visited during Q-Learning.
 
 As a consequence, the neural network was trained on a large amount of data containing no useful information.
 
@@ -90,10 +85,10 @@ Over **30 episodes**, the first version achieved:
 
 | Metric | Result |
 | :--- | :--- |
-| Average Score	| 14.13
-| Maximum Score	| 41
-| Average Survival | 571 steps
-| Average Reward | 9.1
+| Average Score	| 14.13 |
+| Maximum Score	| 41 |
+| Average Survival | 571 steps |
+| Average Reward | 9.1 |
 
 The results showed that the model was not successfully reproducing the policy learned by the Q-Learning agent.
 
@@ -103,13 +98,7 @@ The training dataset was then modified to remove states that had never been visi
 
 Only states containing meaningful learned Q-values were used to train the model.
 
-By removing the large number of irrelevant:
-
-```bash
-Q = [0, 0]
-```
-
-states, the neural network was able to focus on the actual knowledge acquired by the Q-Learning agent.
+By removing the large number of irrelevant `Q = [0, 0]` states, the neural network was able to focus on the actual knowledge acquired by the Q-Learning agent.
 
 ### Final Results
 
@@ -117,21 +106,21 @@ The improved neural agent achieved:
 
 | Metric | Result |
 | :--- | :--- |
-| Average Score | 680.3
-| Maximum Score | 1,423
-| Average Survival | 25,684 steps
-| Average Reward | 675.3
+| Average Score | 680.3 |
+| Maximum Score | 1,423 |
+| Average Survival | 25,684 steps |
+| Average Reward | 675.3 |
 
 These results were obtained over **10 episodes** due to execution time limitations.
 
 Despite the smaller number of evaluation episodes, the performance improvement was substantial.
 
 ## Results Comparison
-|Agent | Average Score | Maximum Score | Average Survival
+|Agent | Average Score | Maximum Score | Average Survival |
 | :--- | :--- | :--- | :--- |
-|Q-Learning | 95.63 | 278 | 3,645
-|Neural Network — Initial | 14.13 | 41 | 571
-|Neural Network — Improved | 680.3 | 1,423 | 25,684
+|Q-Learning | 95.63 | 278 | 3,645 |
+|Neural Network — Initial | 14.13 | 41 | 571 |
+|Neural Network — Improved | 680.3 | 1,423 | 25,684 |
 
 The final neural network significantly outperformed the tabular Q-Learning agent.
 
@@ -156,7 +145,7 @@ The main improvement came from training the model exclusively on meaningful stat
 │
 ├── train_q_agent.py                # Q-Learning training
 ├── train_q_nn.py                   # Neural Network training
-├── test_agent.py                   # Agent evaluation
+├── test_agent.py                   # Main script for testing agents in Flappy Bird.
 │
 ├── flappy_birds_q_table.pkl        # Trained Q-table
 ├── flappy_birds_q_table_final.pkl  # Final trained Q-table
@@ -172,8 +161,7 @@ The main improvement came from training the model exclusively on meaningful stat
 Clone the repository:
 
 ```bash
-git clone https://github.com/maximoalva/flappy-bird-reinforcement-learning-agents
-.git
+git clone https://github.com/maximoalva/flappy-bird-reinforcement-learning-agents.git
 cd flappy-bird-reinforcement-learning-agents
 ```
 
@@ -203,11 +191,15 @@ pip install -r requirements.txt
 
 ## Usage
 
-Train the Q-Learning agent:
+### Train the Agents
+
+#### Q-Learning Agent
 
 ```bash
 python train_q_agent.py
 ```
+
+#### Neural Network Agent
 
 Train the Neural Network using the learned Q-table:
 
@@ -215,10 +207,36 @@ Train the Neural Network using the learned Q-table:
 python train_q_nn.py
 ```
 
-Test the trained agents:
+### Test the Agents
+
+The project includes different agents that can be executed through `test_agent.py`.
+
+#### Random Agent
+
+Agent that takes random actions.
 
 ```bash
-python test_agent.py
+python test_agent.py --agent agentes.random_agent.RandomAgent
+```
+
+#### Manual Agent
+
+Play the game manually using the **Space bar**.
+
+```bash
+python test_agent.py --agent agentes.manual_agent.ManualAgent
+```
+
+#### Q-Learning Agent
+
+```bash
+python test_agent.py --agent agentes.dq_agent.QAgent
+```
+
+#### Neural Network Agent
+
+```bash
+python test_agent.py --agent agentes.nn_agent.NNAgent
 ```
 
 ## Key Takeaways
